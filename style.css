@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Nerko One", cursive;
+}
+body {
+  /* font-family: "Nerko One", cursive; */
+
+  height: 100vh;
+  background-color: salmon;
+  display: flex;
+}
+.board {
+  height: 640px;
+  width: 640px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  perspective: 1000px;
+}
+img {
+  object-fit: cover;
+}
+.card {
+  cursor: pointer;
+  position: relative;
+  width: calc(33.33% - 10px);
+  height: calc(50% - 10px);
+  margin: 5px;
+  border-radius: 5px;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+.card:active {
+  transform: scale(0.97);
+  transition: transform 0.2s;
+}
+.backFace,
+.frontFace {
+  background-color: #ffffff99;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  border: 4px solid black;
+  position: absolute;
+  backface-visibility: hidden;
+}
+.card.flip {
+  transform: rotateY(180deg);
+}
+.frontFace {
+  transform: rotateY(180deg);
+}
+.winningMessage {
+  display: none;
+  opacity: 0;
+  position: fixed;
+  transition: 1s;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  flex-direction: column;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff99;
+  height: 100vh;
+  width: 100vw;
+  font-size: 3rem;
+  z-index: 99;
+  /* overflow: hidden; */
+}
+.show {
+  display: flex;
+  /* opacity: 1; */
+}
+.winningMessage button {
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 0.2em 0.7em;
+  line-height: 1.7em !important;
+  background-color: #eeeeee99;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border: 2px solid;
+  border-radius: 3px;
+  -webkit-transition: all 0.3s;
+  transition: 0.5s;
+}
+.winningMessage button:hover {
+  cursor: pointer;
+  background-color: rgb(56, 126, 230);
+  transform: translateX(15px);
+  box-shadow: 0px 10px 30px black;
+  color: #222;
+}
+.winningMessage button:hover::after {
+  content: "";
+  transform: translateY(40px);
+  border: solid 5px #222;
+  border-width: 0 5px 5px 0;
+  display: inline-block;
+  padding: 6px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transition: all 1s;
+}
