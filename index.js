@@ -77,3 +77,30 @@ function fadeOut(element) {
 }
 
 cards.forEach((card) => card.addEventListener('click', flipCard));
+
+const winningMessageButton = document.querySelector('.winningMessage button');
+winningMessageButton.addEventListener('mouseover', nextRoundBtnHovered);
+winningMessageButton.addEventListener(
+  'click',
+  () => (location.href = './roundTwo.html')
+);
+
+// winningMessageButton.addEventListener(
+//   'mouseover',
+//   () => )
+// );
+winningMessageButton.addEventListener(
+  'mouseout',
+  () => (winningMessageButton.textContent = `Play Next Round!`)
+);
+winningMessageButton.addEventListener('mouseout', () =>
+  winningMessageButton.classList.remove('hovered')
+);
+
+function nextRoundBtnHovered() {
+  winningMessageButton.classList.add('hovered');
+  winningMessageButton.textContent = `Play Next Round! >`;
+}
+// function nextRoundBtnMouseout() {
+
+// }
