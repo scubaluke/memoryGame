@@ -81,7 +81,11 @@ export const data2 = [
     match: 'well-being',
   },
 ];
-export const example = {
-  Curiosity:
-    'Jennifer is interested in learning more about the solar system, so she checks out books from the library on the topic and watches a movie about the Milky Way.',
-};
+export const example = [
+  {
+    word: 'Curiosity',
+    sentence:
+      'Jennifer is interested in learning more about the solar system, so she checks out books from the library on the topic and watches a movie about the Milky Way.',
+    match: 'curiosity',
+  },
+];

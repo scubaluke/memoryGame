@@ -80,11 +80,10 @@ function nextRound(round) {
   generateCards(round);
   // generatedCards.forEach((item) => item.addEventListener('click', flipCard));
 }
+const board = document.querySelector('.board');
+
 function generateCards(dataInput) {
-  const board = document.querySelector('.board');
-
   const cardHtml = [];
-
   dataInput.forEach((item) => {
     cardHtml.push(`<div class="card" data-match="${item.match}">
     <p class="frontFace">${item.sentence}</p>
@@ -95,22 +94,60 @@ function generateCards(dataInput) {
     <img class="backFace" src="./img/selcardback.jpeg" alt="">
     </div>`);
   });
-
   const boardHtml = `<div class="board">
   ${cardHtml.join('')}
 </div>`;
   board.innerHTML = boardHtml;
   cards = document.querySelectorAll('.card');
+  // sizeFont(cards);
+
+  // cards.forEach((el) => sizeFont(el));
+  // const cards = document.querySelectorAll('.card');
   cards.forEach((c) => c.addEventListener('click', flipCard));
+  shuffle();
+}
+const directions = document.querySelector('.directions');
+const seeExamplebtn = document.querySelector('.seeExamplebtn');
+
+function generateExample() {
+  fadeOut(directions);
+  let otherCards = '';
+  for (let i = 0; i < 8; i++) {
+    otherCards += `<div class="card" >
+<img class="backFace" src="./img/selcardback.jpeg" alt="">
+</div>`;
+  }
+  const exampleCard = `<div class="card flip" data-match="${example[0].match}">
+<p class="frontFace">${example[0].sentence}</p>
+<img class="backFace" src="./img/selcardback.jpeg" alt="">
+</div>
+<div class="card flip" data-match="${example[0].match}">
+<p class="frontFace">${example[0].word}</p>
+<img class="backFace" src="./img/selcardback.jpeg" alt="">
+</div></div>`;
+  // exampleCard.forEach((el) => isOverflown(el));
+
+  const understandDirections = document.querySelector('.understandDirections');
+  understandDirections.classList.add('show');
+  board.innerHTML = exampleCard + otherCards;
 }
 generateCards(data);
+seeExamplebtn.addEventListener('click', generateExample);
+const understand = document.querySelector('.understandDirections');
+const play = document.querySelector('.play');
+play.addEventListener('click', () => startGame(data));
+function startGame(game) {
+  generateCards(game);
+  shuffle();
+  fadeOut(understand);
+}
 
-(function shuffle() {
+function shuffle() {
   cards.forEach((card) => {
     const randomOrder = Math.floor(Math.random() * cards.length);
     card.style.order = randomOrder;
   });
-})();
+}
 
 /** *****  FADE HELPER FUNCTIONS ****************** */
 function fadeIn(element) {
@@ -125,4 +162,34 @@ function fadeOut(element) {
   setTimeout(() => {
     element.classList.remove('show');
   }, 500);
+}
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
+
+function sizeFont(el) {
+  // const el = document.getElementsByClassName(element);
+  el.forEach((item) => console.log(item.style));
+  console.log(el);
+  // const el = document.querySelector('.directions');
+  el.style.fontSize = '1rem';
+  console.log(el.style);
+  // el.forEach((el) => console.log(el.style.fontSize));
+  // console.log(el);
+  // const el = document.getelById(el);
+  // let fontSize = parseInt(el.style.fontSize);
+  let { fontSize } = el.style;
+
+  console.log(fontSize);
+  for (let i = fontSize; i >= 0; i--) {
+    const overflow = isOverflown(el);
+    if (overflow) {
+      fontSize--;
+      el.style.fontSize = `${fontSize}px`;
+      console.log(el.style.fontSize);
+    }
+  }
 }

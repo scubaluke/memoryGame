@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="directions">
+    <div class="directions show">
         <h2>Directions:</h2>
         <p>Turn over any two cards. <br>
             Match the social and emotional learning (SEL) term with its example. To play: turn over any two cards. If the term and the example match, you keep the cards. If they don’t, the cards turn back over and you can try again. Remember where each card was so when you turn over another two cards, you can find the matches. 
             </p>
-            <button class="seeExample">See Example</button>
+            <button class="seeExamplebtn">See Example</button>
     </div>
 
     <div class="example"></div>
+  <div class="understandDirections">
+      <p >Jenifer was <strong>curious</strong> when she checked out her books, so these cards are a match.</p>
+    <h2>Got it</h2>
+    <button class="play">Play Game</button>
+  </div>
 
     <div class="winningMessage">
         <h1>Congratulations, You Win!</h1>
@@ -23,32 +28,7 @@
     </div>
 
     <div class="board">
-        <div class="card flip" data-animal="elephant">
-                <h1 class="frontFace">Curiosity</h1>
-            <img class="backFace" src="./img/selcardback.jpeg" alt="">
-        </div>
-
-        <div class="card flip" data-animal="elephant">
-    <p class="frontFace">Jennifer is interested in learning more about the solar system, so she checks out books from the library on the topic and watches a movie about the Milky Way.</p>
-    <img class="backFace" src="./img/selcardback.jpeg" alt="">
-        </div>
-        
-        <div class="card" data-animal="giraffe">
-            <img src="./img/giraffe.png" alt="" class="frontFace">
-            <img class="backFace" src="./img/selcardback.jpeg" alt="">
-        </div>
-        <div class="card" data-animal="giraffe">
-            <img src="./img/giraffe.png" alt="" class="frontFace">
-            <img class="backFace" src="./img/selcardback.jpeg" alt="">
-        </div>
-        <div class="card" data-animal="tiger">
-            <img src="./img/tiger.png" alt="" class="frontFace">
-            <img class="backFace" src="./img/selcardback.jpeg" alt="">
-        </div>
-        <div class="card" data-animal="tiger">
-            <img src="./img/tiger.png" alt="" class="frontFace">
-            <img class="backFace" src="./img/selcardback.jpeg" alt="">
-        </div>
+       
     </div>
     
     <script type="module" src="./index.js"></script>
