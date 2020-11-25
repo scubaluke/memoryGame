@@ -1,6 +1,7 @@
 import { example, data, data2 } from './data.js';
 
 // const cards = document.querySelectorAll('.card');
+/** *******  GAME FUNCTIONS  ********* */
 let cards;
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -56,30 +57,13 @@ function resetBoard() {
   [firstCard, secondCard] = [null, null];
 }
 
-const winningMessageButton = document.querySelector('.winningMessage button');
-function nextRoundBtnHovered() {
-  winningMessageButton.classList.add('hovered');
-  winningMessageButton.textContent = `Play Next Round! >`;
+function shuffle() {
+  cards.forEach((card) => {
+    const randomOrder = Math.floor(Math.random() * cards.length);
+    card.style.order = randomOrder;
+  });
 }
-function nextRoundBtnUnHovered() {
-  winningMessageButton.classList.remove('hovered');
-  winningMessageButton.textContent = `Play Next Round!`;
-}
-winningMessageButton.addEventListener('mouseover', nextRoundBtnHovered);
-winningMessageButton.addEventListener('mouseout', nextRoundBtnUnHovered);
-
-winningMessageButton.addEventListener('click', () => nextRound(data2));
-
-// function nextRoundBtnMouseout() {
-
-// }
-/** **** EXAMPLE PAGE  *************** */
-function nextRound(round) {
-  fadeOut(winningMessage);
-  resetBoard();
-  generateCards(round);
-  // generatedCards.forEach((item) => item.addEventListener('click', flipCard));
-}
+/** *********  GENERATE CARDS  AND BOARD ******************* */
 const board = document.querySelector('.board');
 
 function generateCards(dataInput) {
@@ -99,16 +83,14 @@ function generateCards(dataInput) {
 </div>`;
   board.innerHTML = boardHtml;
   cards = document.querySelectorAll('.card');
-  // sizeFont(cards);
-
-  // cards.forEach((el) => sizeFont(el));
-  // const cards = document.querySelectorAll('.card');
   cards.forEach((c) => c.addEventListener('click', flipCard));
   shuffle();
 }
+generateCards(data);
+
+/** **** EXAMPLE PAGE  *************** */
 const directions = document.querySelector('.directions');
 const seeExamplebtn = document.querySelector('.seeExamplebtn');
-
 function generateExample() {
   fadeOut(directions);
   let otherCards = '';
@@ -125,13 +107,12 @@ function generateExample() {
 <p class="frontFace">${example[0].word}</p>
 <img class="backFace" src="./img/selcardback.jpeg" alt="">
 </div></div>`;
-  // exampleCard.forEach((el) => isOverflown(el));
 
   const understandDirections = document.querySelector('.understandDirections');
   understandDirections.classList.add('show');
   board.innerHTML = exampleCard + otherCards;
 }
-generateCards(data);
+
 seeExamplebtn.addEventListener('click', generateExample);
 const understand = document.querySelector('.understandDirections');
 const play = document.querySelector('.play');
@@ -141,14 +122,24 @@ function startGame(game) {
   shuffle();
   fadeOut(understand);
 }
-
-function shuffle() {
-  cards.forEach((card) => {
-    const randomOrder = Math.floor(Math.random() * cards.length);
-    card.style.order = randomOrder;
-  });
+function nextRound(round) {
+  fadeOut(winningMessage);
+  resetBoard();
+  generateCards(round);
 }
+const winningMessageButton = document.querySelector('.winningMessage button');
+function nextRoundBtnHovered() {
+  winningMessageButton.classList.add('hovered');
+  winningMessageButton.textContent = `Play Next Round! >`;
+}
+function nextRoundBtnUnHovered() {
+  winningMessageButton.classList.remove('hovered');
+  winningMessageButton.textContent = `Play Next Round!`;
+}
+winningMessageButton.addEventListener('mouseover', nextRoundBtnHovered);
+winningMessageButton.addEventListener('mouseout', nextRoundBtnUnHovered);
 
+winningMessageButton.addEventListener('click', () => nextRound(data2));
 /** *****  FADE HELPER FUNCTIONS ****************** */
 function fadeIn(element) {
   element.classList.add('show');
@@ -163,33 +154,48 @@ function fadeOut(element) {
     element.classList.remove('show');
   }, 500);
 }
-function isOverflown(element) {
-  return (
-    element.scrollHeight > element.clientHeight ||
-    element.scrollWidth > element.clientWidth
-  );
-}
 
-function sizeFont(el) {
-  // const el = document.getElementsByClassName(element);
-  el.forEach((item) => console.log(item.style));
-  console.log(el);
-  // const el = document.querySelector('.directions');
-  el.style.fontSize = '1rem';
-  console.log(el.style);
-  // el.forEach((el) => console.log(el.style.fontSize));
-  // console.log(el);
-  // const el = document.getelById(el);
-  // let fontSize = parseInt(el.style.fontSize);
-  let { fontSize } = el.style;
+// function isOverflown(element) {
+//   return (
+//     element.scrollHeight > element.clientHeight ||
+//     element.scrollWidth > element.clientWidth
+//   );
+// }
 
-  console.log(fontSize);
-  for (let i = fontSize; i >= 0; i--) {
-    const overflow = isOverflown(el);
-    if (overflow) {
-      fontSize--;
-      el.style.fontSize = `${fontSize}px`;
-      console.log(el.style.fontSize);
-    }
-  }
-}
+// function sizeFont(el) {
+//   // const el = document.getElementsByClassName(element);
+//   el.forEach((item) => console.log(item.style));
+//   console.log(el);
+//   // const el = document.querySelector('.directions');
+//   el.style.fontSize = '1rem';
+//   console.log(el.style);
+//   // el.forEach((el) => console.log(el.style.fontSize));
+//   // console.log(el);
+//   // const el = document.getelById(el);
+//   // let fontSize = parseInt(el.style.fontSize);
+//   let { fontSize } = el.style;
+
+//   console.log(fontSize);
+//   for (let i = fontSize; i >= 0; i--) {
+//     const overflow = isOverflown(el);
+//     if (overflow) {
+//       fontSize--;
+//       el.style.fontSize = `${fontSize}px`;
+//       console.log(el.style.fontSize);
+//     }
+//   }
+// }
+// flexFont = function () {
+//   const divs = document.getElementsByClassName('flexFont');
+//   for (let i = 0; i < divs.length; i++) {
+//     const relFontsize = divs[i].offsetWidth * 0.05;
+//     divs[i].style.fontSize = `${relFontsize}px`;
+//   }
+// };
+
+// window.onload = function (event) {
+//   flexFont();
+// };
+// window.onresize = function (event) {
+//   flexFont();
+// };
