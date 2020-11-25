@@ -50,7 +50,7 @@ export const data = [
     match: 'recognizing',
   },
 ];
-const data2 = [
+export const data2 = [
   {
     word: 'Resolving Conflict',
     sentence:

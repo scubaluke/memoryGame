@@ -1,7 +1,7 @@
-import { example, data } from './data.js';
+import { example, data, data2 } from './data.js';
 
-const cards = document.querySelectorAll('.card');
-
+// const cards = document.querySelectorAll('.card');
+let cards;
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard;
@@ -10,7 +10,6 @@ let secondCard;
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
-  console.log(this);
   this.classList.toggle('flip');
 
   if (!hasFlippedCard) {
@@ -24,20 +23,18 @@ function flipCard() {
   // find if cards match
   checkForMatch();
 }
+const winningMessage = document.querySelector('.winningMessage');
+
 function checkForMatch() {
   const isMatch = firstCard.dataset.match === secondCard.dataset.match;
   isMatch ? disableCards() : unflipCards();
   if (checkWin()) {
-    const winningMessage = document.querySelector('.winningMessage');
     // winningMessage.textContent = 'Congratulations, You win!';
     fadeIn(winningMessage);
   }
 }
 function checkWin() {
-  console.log(
-    [...genoratedCards].every((card) => card.classList.contains('flip'))
-  );
-  return [...genoratedCards].every((card) => card.classList.contains('flip'));
+  return [...cards].every((card) => card.classList.contains('flip'));
 }
 
 function disableCards() {
@@ -60,35 +57,35 @@ function resetBoard() {
 }
 
 const winningMessageButton = document.querySelector('.winningMessage button');
-winningMessageButton.addEventListener('mouseover', nextRoundBtnHovered);
-winningMessageButton.addEventListener(
-  'click',
-  () => (location.href = './roundTwo.html')
-);
-
-winningMessageButton.addEventListener(
-  'mouseout',
-  () => (winningMessageButton.textContent = `Play Next Round!`)
-);
-winningMessageButton.addEventListener('mouseout', () =>
-  winningMessageButton.classList.remove('hovered')
-);
-
 function nextRoundBtnHovered() {
   winningMessageButton.classList.add('hovered');
   winningMessageButton.textContent = `Play Next Round! >`;
 }
+function nextRoundBtnUnHovered() {
+  winningMessageButton.classList.remove('hovered');
+  winningMessageButton.textContent = `Play Next Round!`;
+}
+winningMessageButton.addEventListener('mouseover', nextRoundBtnHovered);
+winningMessageButton.addEventListener('mouseout', nextRoundBtnUnHovered);
+
+winningMessageButton.addEventListener('click', () => nextRound(data2));
+
 // function nextRoundBtnMouseout() {
 
 // }
 /** **** EXAMPLE PAGE  *************** */
-
-function generateCards() {
+function nextRound(round) {
+  fadeOut(winningMessage);
+  resetBoard();
+  generateCards(round);
+  // generatedCards.forEach((item) => item.addEventListener('click', flipCard));
+}
+function generateCards(dataInput) {
   const board = document.querySelector('.board');
 
   const cardHtml = [];
 
-  data.forEach((item) => {
+  dataInput.forEach((item) => {
     cardHtml.push(`<div class="card" data-match="${item.match}">
     <p class="frontFace">${item.sentence}</p>
     <img class="backFace" src="./img/selcardback.jpeg" alt="">
@@ -103,16 +100,13 @@ function generateCards() {
   ${cardHtml.join('')}
 </div>`;
   board.innerHTML = boardHtml;
+  cards = document.querySelectorAll('.card');
+  cards.forEach((c) => c.addEventListener('click', flipCard));
 }
-generateCards();
-// cards.forEach((card) =>
-//   card.addEventListener('click', () => console.log('clicked'))
-// );
-const genoratedCards = document.querySelectorAll('[data-match]');
-genoratedCards.forEach((item) => item.addEventListener('click', flipCard));
+generateCards(data);
 
 (function shuffle() {
-  genoratedCards.forEach((card) => {
+  cards.forEach((card) => {
     const randomOrder = Math.floor(Math.random() * cards.length);
     card.style.order = randomOrder;
   });
@@ -121,7 +115,6 @@ genoratedCards.forEach((item) => item.addEventListener('click', flipCard));
 /** *****  FADE HELPER FUNCTIONS ****************** */
 function fadeIn(element) {
   element.classList.add('show');
-  console.log(element);
   setTimeout(() => {
     element.style.opacity = '1';
   }, 20);
@@ -129,7 +122,6 @@ function fadeIn(element) {
 
 function fadeOut(element) {
   element.style.opacity = '0';
-
   setTimeout(() => {
     element.classList.remove('show');
   }, 500);
