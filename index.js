@@ -1,3 +1,5 @@
+import { example, data } from './data.js';
+
 const cards = document.querySelectorAll('.card');
 
 let hasFlippedCard = false;
@@ -8,6 +10,7 @@ let secondCard;
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
+  console.log(this);
   this.classList.toggle('flip');
 
   if (!hasFlippedCard) {
@@ -22,7 +25,7 @@ function flipCard() {
   checkForMatch();
 }
 function checkForMatch() {
-  const isMatch = firstCard.dataset.animal === secondCard.dataset.animal;
+  const isMatch = firstCard.dataset.match === secondCard.dataset.match;
   isMatch ? disableCards() : unflipCards();
   if (checkWin()) {
     const winningMessage = document.querySelector('.winningMessage');
@@ -31,7 +34,10 @@ function checkForMatch() {
   }
 }
 function checkWin() {
-  return [...cards].every((card) => card.classList.contains('flip'));
+  console.log(
+    [...genoratedCards].every((card) => card.classList.contains('flip'))
+  );
+  return [...genoratedCards].every((card) => card.classList.contains('flip'));
 }
 
 function disableCards() {
@@ -53,31 +59,6 @@ function resetBoard() {
   [firstCard, secondCard] = [null, null];
 }
 
-(function shuffle() {
-  cards.forEach((card) => {
-    const randomOrder = Math.floor(Math.random() * cards.length);
-    card.style.order = randomOrder;
-  });
-})();
-
-function fadeIn(element) {
-  element.classList.add('show');
-  console.log(element);
-  setTimeout(() => {
-    element.style.opacity = '1';
-  }, 20);
-}
-
-function fadeOut(element) {
-  element.style.opacity = '0';
-
-  setTimeout(() => {
-    element.classList.remove('show');
-  }, 500);
-}
-
-cards.forEach((card) => card.addEventListener('click', flipCard));
-
 const winningMessageButton = document.querySelector('.winningMessage button');
 winningMessageButton.addEventListener('mouseover', nextRoundBtnHovered);
 winningMessageButton.addEventListener(
@@ -85,10 +66,6 @@ winningMessageButton.addEventListener(
   () => (location.href = './roundTwo.html')
 );
 
-// winningMessageButton.addEventListener(
-//   'mouseover',
-//   () => )
-// );
 winningMessageButton.addEventListener(
   'mouseout',
   () => (winningMessageButton.textContent = `Play Next Round!`)
@@ -104,3 +81,56 @@ function nextRoundBtnHovered() {
 // function nextRoundBtnMouseout() {
 
 // }
+/** **** EXAMPLE PAGE  *************** */
+
+function generateCards() {
+  const board = document.querySelector('.board');
+
+  const cardHtml = [];
+
+  data.forEach((item) => {
+    cardHtml.push(`<div class="card" data-match="${item.match}">
+    <p class="frontFace">${item.sentence}</p>
+    <img class="backFace" src="./img/selcardback.jpeg" alt="">
+    </div>
+    <div class="card" data-match="${item.match}">
+    <p class="frontFace">${item.word}</p>
+    <img class="backFace" src="./img/selcardback.jpeg" alt="">
+    </div>`);
+  });
+
+  const boardHtml = `<div class="board">
+  ${cardHtml.join('')}
+</div>`;
+  board.innerHTML = boardHtml;
+}
+generateCards();
+// cards.forEach((card) =>
+//   card.addEventListener('click', () => console.log('clicked'))
+// );
+const genoratedCards = document.querySelectorAll('[data-match]');
+genoratedCards.forEach((item) => item.addEventListener('click', flipCard));
+
+(function shuffle() {
+  genoratedCards.forEach((card) => {
+    const randomOrder = Math.floor(Math.random() * cards.length);
+    card.style.order = randomOrder;
+  });
+})();
+
+/** *****  FADE HELPER FUNCTIONS ****************** */
+function fadeIn(element) {
+  element.classList.add('show');
+  console.log(element);
+  setTimeout(() => {
+    element.style.opacity = '1';
+  }, 20);
+}
+
+function fadeOut(element) {
+  element.style.opacity = '0';
+
+  setTimeout(() => {
+    element.classList.remove('show');
+  }, 500);
+}
