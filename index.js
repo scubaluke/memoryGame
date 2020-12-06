@@ -41,6 +41,10 @@ function checkWin() {
 function disableCards() {
   firstCard.removeEventListener('click', flipCard);
   secondCard.removeEventListener('click', flipCard);
+  fadeIn(thatsRight);
+  setTimeout(() => {
+    fadeOut(thatsRight);
+  }, 1500);
   resetBoard();
 }
 function unflipCards() {
@@ -69,7 +73,8 @@ const board = document.querySelector('.board');
 function generateCards(dataInput) {
   const cardHtml = [];
   dataInput.forEach((item) => {
-    cardHtml.push(`<div class="card" data-match="${item.match}">
+    cardHtml.push(`
+    <div class="card" data-match="${item.match}">
     <p class="frontFace">${item.sentence}</p>
     <img class="backFace" src="./img/selcardback.jpeg" alt="">
     </div>
@@ -85,7 +90,53 @@ function generateCards(dataInput) {
   cards = document.querySelectorAll('.card');
   cards.forEach((c) => c.addEventListener('click', flipCard));
   shuffle();
+  // setFontSize();
+  // sizeFont();
 }
+// function setFontSize() {
+//   cards = document.querySelectorAll('.card');
+//   const style = getComputedStyle(cards);
+
+//   console.log([...cards]);
+//   for (let i = 0; i < cards.length; i++) {
+//     // console.log(cards[i].offsetWidth * 0.05);
+//     console.log(cards[i].style);
+//     const relFontsize = cards[i].offsetWidth * 0.05;
+//     cards[i].style.fontSize = `${relFontsize}px`;
+//     console.log(relFontsize);
+//   }
+// }
+// function isOverflown(element) {
+//   console.log(element.scrollHeight);
+//   console.log(element.clientHeight);
+//   console.log(element.scrollHeight > element.clientHeight);
+//   return (
+//     element.scrollHeight > element.clientHeight ||
+//     element.scrollWidth > element.clientWidth
+//   );
+// }
+
+// function sizeFont() {
+//   cards = document.querySelectorAll('.card');
+
+//   cards.forEach((item) => {
+//     const style = getComputedStyle(item);
+//     // console.log(style.fontSize);
+//     // console.log(fontSize);
+//     let fontSize = parseInt(style.fontSize);
+
+//     for (let i = fontSize; i >= 0; i--) {
+//       const overflow = isOverflown(item);
+//       if (overflow) {
+//         console.log(fontSize);
+//         fontSize -= 1;
+//         console.log(fontSize);
+//         item.style.fontSize = `${fontSize}px`;
+//       }
+//     }
+//   });
+// }
+
 generateCards(data);
 
 /** **** EXAMPLE PAGE  *************** */
@@ -127,6 +178,7 @@ function nextRound(round) {
   resetBoard();
   generateCards(round);
 }
+const thatsRight = document.querySelector('.thatsRight');
 const winningMessageButton = document.querySelector('.winningMessage button');
 function nextRoundBtnHovered() {
   winningMessageButton.classList.add('hovered');
@@ -155,47 +207,12 @@ function fadeOut(element) {
   }, 500);
 }
 
-// function isOverflown(element) {
-//   return (
-//     element.scrollHeight > element.clientHeight ||
-//     element.scrollWidth > element.clientWidth
-//   );
-// }
-
-// function sizeFont(el) {
-//   // const el = document.getElementsByClassName(element);
-//   el.forEach((item) => console.log(item.style));
-//   console.log(el);
-//   // const el = document.querySelector('.directions');
-//   el.style.fontSize = '1rem';
-//   console.log(el.style);
-//   // el.forEach((el) => console.log(el.style.fontSize));
-//   // console.log(el);
-//   // const el = document.getelById(el);
-//   // let fontSize = parseInt(el.style.fontSize);
-//   let { fontSize } = el.style;
-
-//   console.log(fontSize);
-//   for (let i = fontSize; i >= 0; i--) {
-//     const overflow = isOverflown(el);
-//     if (overflow) {
-//       fontSize--;
-//       el.style.fontSize = `${fontSize}px`;
-//       console.log(el.style.fontSize);
-//     }
-//   }
-// }
-// flexFont = function () {
-//   const divs = document.getElementsByClassName('flexFont');
-//   for (let i = 0; i < divs.length; i++) {
-//     const relFontsize = divs[i].offsetWidth * 0.05;
-//     divs[i].style.fontSize = `${relFontsize}px`;
-//   }
-// };
-
 // window.onload = function (event) {
 //   flexFont();
 // };
 // window.onresize = function (event) {
 //   flexFont();
 // };
+// const testing = document.querySelector('.directions');
+// const style = getComputedStyle(testing);
+// console.log(style);
