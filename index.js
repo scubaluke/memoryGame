@@ -53,7 +53,8 @@ function unflipCards() {
     firstCard.classList.remove('flip');
     secondCard.classList.remove('flip');
     resetBoard();
-  }, 1500);
+    // time cards are face up *******
+  }, 5000);
 }
 
 function resetBoard() {
