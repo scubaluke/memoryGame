@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Ruda:wght@400;600;900&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -58,6 +58,8 @@ img {
 }
 
 p.frontFace {
+  font-family: "Ruda", sans-serif;
+
   overflow: auto;
   margin: 0;
   font-size: 20px;
@@ -184,7 +186,33 @@ p.frontFace {
   /* background-color: #44444499; */
   /* border: 2px solid #333; */
 }
-
+.visitUs button {
+  margin-top: 20px;
+}
+.visitUs p {
+  color: teal;
+}
+.visitUs {
+  /* color: rebeccapurple; */
+  display: none;
+  opacity: 0;
+  position: fixed;
+  transition: 1s;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  flex-direction: column;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff99;
+  height: 100vh;
+  width: 100vw;
+  font-size: 3rem;
+  z-index: 99;
+  /* overflow: hidden; */
+}
 .container {
   padding: 10px;
   background-color: #ebebebef;
@@ -364,7 +392,7 @@ button:hover {
   box-shadow: 32vmin 0 4.707515515826431vmin currentColor;
 }
 .background span:nth-child(3) {
-  color: #583c87;
+  color: #634e86;
   top: 57%;
   left: 39%;
   animation-duration: 88s;
@@ -382,7 +410,7 @@ button:hover {
   box-shadow: -32vmin 0 4.4292731000273164vmin currentColor;
 }
 .background span:nth-child(5) {
-  color: #583c87;
+  color: #6b578b;
   top: 52%;
   left: 67%;
   animation-duration: 77s;
