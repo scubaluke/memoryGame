@@ -37,7 +37,6 @@ function checkForMatch() {
     if (roundNum < 1) {
       fadeIn(winningMessage);
       roundNum += 1;
-      console.log({ roundNum });
     } else {
       fadeIn(visitUs);
     }
@@ -50,6 +49,11 @@ function checkWin() {
 function disableCards() {
   firstCard.removeEventListener('click', flipCard);
   secondCard.removeEventListener('click', flipCard);
+  const darkenFirst = firstCard.querySelector('p');
+  darkenFirst.style.background = '#80808099';
+  const darkenSecond = secondCard.querySelector('p');
+  darkenSecond.style.background = '#80808099';
+
   fadeIn(thatsRight);
   setTimeout(() => {
     fadeOut(thatsRight);
